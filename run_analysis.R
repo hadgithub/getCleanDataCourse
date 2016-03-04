@@ -21,7 +21,7 @@ harDataTrain1 <- read.table("./train/X_train.txt",sep="",header=FALSE,na.strings
 ### Obtain the names of variables. 
 dfNames <- read.table("./features.txt",sep="",header=FALSE,na.strings=TRUE)
 cnames <- dfNames$V2
-####cnames <- paste0(cnames,"Train")
+
 ###Put the 561 column names in harDataTrain1.
 names(harDataTrain1) <- make.names(cnames,unique=TRUE,allow_=TRUE)
 ###Convert harDataTrain1 to data.table type 
@@ -128,8 +128,7 @@ DataTrainHAR <- mutate(DataTrainHAR,BodyGyro.mean..Z = ISBodyGyroZTrain$BodyGyro
 ### Read data of test dataset and load in data table named:harDataTest1.
 harDataTest1 <- read.table("./test/X_test.txt",sep="",header=FALSE,na.strings=TRUE)
 ###Put the 561 column names in harDataTest1.
-####tnames <- dfNames$V2
-####tnames <- paste0(tnames,"Test")
+
 names(harDataTest1) <- make.names(cnames,unique = TRUE,allow_ = TRUE)
 ###Convert harDataTest1 to data.table type 
 harDataTest1 <- as.data.table(harDataTest1)
