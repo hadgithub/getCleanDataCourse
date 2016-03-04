@@ -1,5 +1,7 @@
 # EXERCISE ABOUT PROCESSING TRAINING DATA ABOUT HUMAN ACTIVITY RECOGNITION
+
 #Load libraries required
+
 library(dplyr)
 library(data.table)
 library(stringr)
@@ -257,7 +259,7 @@ save(meanSTD_HARmergeTTClean,file="meanSTD_HARmergeTTClean.RData")
 ### found in CodeBook.md and complementary explanations can be found in README.md
 
 ### 5. Answer : Here I use the libraries "reshape2" and "dplyr"
-library(resshape2)
+library(reshape2)
 #### Melt variables "SubjectCode" and "ActivityName"
 meltData <- melt(meanSTD_HARmergeTTClean,id=c("SubjectCode","ActivityName"))
 #### Group last variables melted
