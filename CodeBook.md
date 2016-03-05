@@ -5,7 +5,7 @@ date: "March 4, 2016"
 output: pdf_document
 ---
 
-This document describe the new variables that author adds to original data sets of Human Activity Recognition Project(HARP). These additional variables were used to produce a tidy data from raw data about training and test of HARP. The original variables haven't been changed. In consequence, the original files:features.txt,features_info.txt and README.txt are valids; however, only two columns were renamed how we will see later.
+This document describe the new variables that author adds to original data sets of Human Activity Recognition Project(HARP). These additional variables were used to produce a tidy data from raw data about training and test of HARP. The original variables haven't been changed except  two columns were renamed how we will see later.. In consequence, the original files:features.txt,features_info.txt and README.txt are valids. 
 
 The data frame that contains initial tidy data is: "HARmergeTTClean". The new columns( From 562 to 574) are:
 
@@ -26,9 +26,7 @@ The data frame that contains initial tidy data is: "HARmergeTTClean". The new co
 [574] "ID" : Identifier to make easiest the merge of data frames.  
 
 
-For last, tidy data obtained was named: tidyMeanData. Only new variable in this data set is:
-
-[3] "mean": Average value per activity for each Subject.
+For last, tidy data obtained was named: tidyMeanDataHARTT. This data set was stored in file: tidyMeanDataHARTT.txt. Too, I save this data set in other format: tidyMeanDataHARTT.RData. This final data set contains the mean values of activity variable associated to each subject.
 
 
 
