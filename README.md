@@ -1,10 +1,10 @@
 ---
-title: "EXERCISE ABOUT PROCESSING TRAINING DATA ABOUT HUMAN ACTIVITY RECOGNITION"
+title: "EXERCISE: DATA PROCESSING ABOUT HUMAN ACTIVITY RECOGNITION"
 author: "Henry Diosa"
 date: "March 4, 2016"
 output: pdf_document
 ---
-This document describe step by step the data processing of Human Activity Recognition data sets until to obtain tidy data in accordance to course project about Getting and Cleaning Data. 
+This document describe step by step the data processing of Human Activity Recognition data sets until to obtain tidy data in accordance to course project about Getting and Cleaning Data(John Hopkins University - Coursera). 
 
 #Initially. Load libraries required
 
@@ -74,7 +74,7 @@ activiTrain <- rename(activiTrain,ActivityCode = V1)
 ```{r}
 activiTrain <- as.data.frame(activiTrain)
 ```
-##Processing variables about inertial signals. Only add one column that represents average value of each vector. Then, this column will be added to data set of training.
+##Processing variables about inertial signals. Only add one column that represents average value of each vector. Then, this column will be added to training data set.
 
 ###To obtain means of body acceleration in X,Y,Z
 
@@ -222,7 +222,7 @@ activiTest <- rename(activiTest,ActivityCode = V1)
 ```{r}
 activiTest <- as.data.table(activiTest)
 ```
-##Processing variables about inertial signals. Only add one column that represents average value of each vector. Then, this column will be added to data set of training.
+##Processing variables about inertial signals. Only add one column that represents average value of each vector. Then, this column will be added to test data set.
 
 ###To obtain means of body acceleration in X,Y,Z
 
@@ -359,25 +359,20 @@ save(meanSTD_HARmergeTTClean,file="meanSTD_HARmergeTTClean.RData")
 
 ### 4. Answer: The new columns in "meanSTD_HARmergeTTClean" data set were labelled with descriptive names. The detailed description can be found in CodeBook.md and complementary explanations can be found in README.md
 
-### 5. Answer : Here I use the libraries "reshape2" and "dplyr"
+### 5. Answer : Here I use the library "dplyr"
+
+###Groups by variables "SubjectCode" and "ActivityName"
 ```{r}
-library(reshape2)
+groups <- group_by(meanSTD_HARmergeTTClean,SubjectCode,ActivityName)
 ```
-#### Melt variables "SubjectCode" and "ActivityName"
+### To calculate mean for groups I use the summarize_each
 ```{r}
-meltData <- melt(meanSTD_HARmergeTTClean,id=c("SubjectCode","ActivityName"))
+tidyMeanDataHARTT <- groups %>% summarize_each(funs(mean))
 ```
-#### Group last variables melted
+#### Save results to file "tidyMeanDataHARTT" in RData and TXT formats.
 ```{r}
-groups <- group_by(meltData,SubjectCode,ActivityName)
-```
-#### To calculate mean for groups
-```{r}
-tidyMeanData <- summarize(groups,mean = mean(value))
-```
-#### Save results to file "tidyMeanDataSubject4Activity"
-```{r}
-save(tidyMeanData,file="tidyMeanDataSubject4Activity.RData")
+save(tidyMeanDataHARTT,file="tidyMeanDataHARTT.RData")
+write.table(tidyMeanDataHARTT,file = "tidyMeanDataHARTT.txt")
 ```
 #END OF EXERCISE
 
