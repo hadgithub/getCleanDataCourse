@@ -1,4 +1,4 @@
-# EXERCISE ABOUT PROCESSING TRAINING DATA ABOUT HUMAN ACTIVITY RECOGNITION
+#PROJECT ABOUT DATA PROCESSING OF HUMAN ACTIVITY RECOGNITION
 
 #Load libraries required
 
@@ -46,7 +46,7 @@ activiTrain <- rename(activiTrain,ActivityCode = V1)
 activiTrain <- as.data.frame(activiTrain)
 
 ##Processing variables about inertial signals. Only add one column that represents average value of each vector. Then, this column will be
-## added to data set of training.
+## added to training data set.
 
 ###To obtain means of body acceleration in X,Y,Z
 
@@ -152,7 +152,7 @@ activiTest <- rename(activiTest,ActivityCode = V1)
 activiTest <- as.data.table(activiTest)
 
 ##Processing variables about inertial signals. Only add one column that represents average value of each vector. Then, this column will be
-## added to data set of training.
+## added to test data set.
 
 ###To obtain means of body acceleration in X,Y,Z
 
@@ -257,17 +257,20 @@ save(meanSTD_HARmergeTTClean,file="meanSTD_HARmergeTTClean.RData")
 ### 4. Answer: The new columns in "meanSTD_HARmergeTTClean" data set were labelled with descriptive names. The detailed description can be 
 ### found in CodeBook.md and complementary explanations can be found in README.md
 
-### 5. Answer : Here I use the libraries "reshape2" and "dplyr"
-library(reshape2)
-#### Melt variables "SubjectCode" and "ActivityName"
-meltData <- melt(meanSTD_HARmergeTTClean,id=c("SubjectCode","ActivityName"))
-#### Group last variables melted
-groups <- group_by(meltData,SubjectCode,ActivityName)
-#### To calculate mean for groups
-tidyMeanData <- summarize(groups,mean = mean(value))
-#### Save results to file "tidyMeanDataSubject4Activity"
-save(tidyMeanData,file="tidyMeanDataSubject4Activity.RData")
+### 5. Answer : Here I use the libraries "dplyr"
 
+###Groups by variables "SubjectCode" and "ActivityName"
+
+groups <- group_by(meanSTD_HARmergeTTClean,SubjectCode,ActivityName)
+
+### To calculate mean for groups I use the summarize_each
+
+tidyMeanDataHARTT <- groups %>% summarize_each(funs(mean))
+
+#### Save results to file "tidyMeanDataHARTT" in RData and TXT formats.
+
+save(tidyMeanDataHARTT,file="tidyMeanDataHARTT.RData")
+write.table(tidyMeanDataHARTT,file = "tidyMeanDataHARTT.txt")
 #END OF EXERCISE
 
 
